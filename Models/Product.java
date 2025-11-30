@@ -1,11 +1,12 @@
 import java.util.*;
+import java.time.LocalDate;
 public class Product {
    private int productId;
    private String productName;
    private String category;
    private double price;
    private int quantity;
-   private Date expiryDate;
+   private LocalDate expiryDate;
    private int damagedQuantity;
 
 
@@ -20,7 +21,7 @@ public class Product {
         this.damagedQuantity = 0;
     }
 
-    public Product(int productId, String productName, String category, double price, int quantity, Date expiryDate, int damagedQuantity) {
+    public Product(int productId, String productName, String category, double price, int quantity, LocalDate expiryDate, int damagedQuantity) {
         setProductId(productId);
         setProductName(productName);
         setCategory(category);
@@ -44,7 +45,7 @@ public class Product {
         return price;
     }
 
-    public Date getExpiryDate() {
+    public LocalDate getExpiryDate() {
         return expiryDate;
     }
 
@@ -83,7 +84,7 @@ public class Product {
         this.damagedQuantity = damagedQuantity;}
     }
 
-    public void setExpiryDate(Date expiryDate) {
+    public void setExpiryDate(LocalDate expiryDate) {
         this.expiryDate = expiryDate;
     }
 
