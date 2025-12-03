@@ -6,16 +6,14 @@ public class Offer {
     private int offerID;
     private String offerDescription;
     private double discountValue;
-    private LocalDate manufactureDate;
     private LocalDate ExpiryDate;
 
-    public Offer(int offerID, String offerDescription, double discountValue, LocalDate manufactureDate, LocalDate ExpiryDate) {
+    public Offer(int offerID, String offerDescription, double discountValue, LocalDate ExpiryDate) {
         //call validate_date function here.
 
         this.offerID = offerID;
         this.offerDescription = offerDescription;
         this.discountValue = discountValue;
-        this.manufactureDate = manufactureDate;
         this.ExpiryDate = ExpiryDate;
     }
 
@@ -41,14 +39,6 @@ public class Offer {
 
     public void setDiscountValue(double discountValue) {
         this.discountValue = discountValue;
-    }
-
-    public LocalDate getManufactureDate() {
-        return manufactureDate;
-    }
-
-    public void setManufactureDate(LocalDate manufactureDate) {
-        this.manufactureDate = manufactureDate;
     }
 
     public LocalDate getExpiryDate() {
