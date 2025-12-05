@@ -1,30 +1,29 @@
-public class Sales{
-   private ProductStorageStub product ;
+public class Sales {
+    private ProductStorageStub product;
 
-
-   public Sales(ProductStorageStub product){
-       this.product = product;
-   }
-public void listProduct(){
-    System.out.println("list of product is\n");
-    for (Product p : product.getAllProducts()) {
-        System.out.println(p);
+    public Sales(ProductStorageStub product) {
+        this.product = product;
     }
-}
+
+    public void listProduct() {
+        System.out.println("List of products:\n");
+        for (Product p : product.getAllProducts()) {
+            System.out.println(p);
+        }
+    }
 
     public Product searchProduct(int id) {
         Product p = product.searchProduct(id);
-
         if (p == null) {
             System.out.println("Product not found");
         } else {
             System.out.println("Found: " + p);
         }
-
         return p;
     }
-  public void createOrder(int id, int quantity) {
-        Product p = productStorage.searchProduct(id);
+
+    public void createOrder(int id, int quantity) {
+        Product p = product.searchProduct(id);
         if (p == null) {
             System.out.println("Product not found");
             return;
@@ -39,7 +38,7 @@ public void listProduct(){
     }
 
     public void cancelOrder(int id, int quantity) {
-        Product p = productStorage.searchProduct(id);
+        Product p = product.searchProduct(id);
         if (p == null) {
             System.out.println("Product not found");
             return;
