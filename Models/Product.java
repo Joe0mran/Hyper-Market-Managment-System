@@ -1,15 +1,14 @@
 import java.util.*;
 import java.time.LocalDate;
+
 public class Product {
-   private int productId;
-   private String productName;
-   private String category;
-   private double price;
-   private int quantity;
-   private LocalDate expiryDate;
-   private int damagedQuantity;
-
-
+    private int productId;
+    private String productName;
+    private String category;
+    private double price;
+    private int quantity;
+    private LocalDate expiryDate;
+    private int damagedQuantity;
 
     public Product() {
         this.productId = 0;
@@ -17,11 +16,12 @@ public class Product {
         this.category = "General";
         this.price = 0.0;
         this.quantity = 0;
-        this.expiryDate = new Date();
+        this.expiryDate = LocalDate.now();
         this.damagedQuantity = 0;
     }
 
-    public Product(int productId, String productName, String category, double price, int quantity, LocalDate expiryDate, int damagedQuantity) {
+    public Product(int productId, String productName, String category, double price, int quantity, LocalDate expiryDate,
+            int damagedQuantity) {
         setProductId(productId);
         setProductName(productName);
         setCategory(category);
@@ -30,8 +30,6 @@ public class Product {
         setExpiryDate(expiryDate);
         setDamagedQuantity(damagedQuantity);
     }
-
-
 
     public String getProductName() {
         return productName;
@@ -61,7 +59,6 @@ public class Product {
         return category;
     }
 
-
     public void setProductName(String productName) {
         this.productName = productName;
     }
@@ -71,8 +68,9 @@ public class Product {
     }
 
     public void setPrice(double price) {
-        if (price>=0){
-        this.price = price;}
+        if (price >= 0) {
+            this.price = price;
+        }
     }
 
     public void setCategory(String category) {
@@ -80,8 +78,9 @@ public class Product {
     }
 
     public void setDamagedQuantity(int damagedQuantity) {
-        if (damagedQuantity>=0&&damagedQuantity<=this.quantity){
-        this.damagedQuantity = damagedQuantity;}
+        if (damagedQuantity >= 0 && damagedQuantity <= this.quantity) {
+            this.damagedQuantity = damagedQuantity;
+        }
     }
 
     public void setExpiryDate(LocalDate expiryDate) {
@@ -89,10 +88,9 @@ public class Product {
     }
 
     public void setQuantity(int quantity) {
-        if (quantity>=0){this.quantity = quantity;}
+        if (quantity >= 0) {
+            this.quantity = quantity;
+        }
     }
 
 }
-
-
-
