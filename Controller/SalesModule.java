@@ -1,7 +1,7 @@
-public class Sales {
+public class SalesModule {
     private ProductStorageStub product;
 
-    public Sales(ProductStorageStub product) {
+    public SalesModule(ProductStorageStub product) {
         this.product = product;
     }
 
@@ -47,3 +47,4 @@ public class Sales {
         System.out.println("Order cancelled and stock restored!");
     }
 }
+
