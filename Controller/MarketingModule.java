@@ -18,10 +18,9 @@ public class MarketingModule {
                 
         LocalDate startDate = LocalDate.now();
       
-        Offer newOffer = new Offer(offerId, description, discountValue, startDate, validUntil);
+        Offer newOffer = new Offer(offerId, description, discountValue, validUntil);
         
         activeOffers.add(newOffer);
-        System.out.println("Success: Offer created - " + description);
     }
 
     public void sendOfferToInventory(int offerID) {
@@ -61,4 +60,5 @@ public class MarketingModule {
         }
         System.out.println("------------------------\n");
     }
+
 }
