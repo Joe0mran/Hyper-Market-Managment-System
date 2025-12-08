@@ -6,7 +6,6 @@ public class productStorage {
 
     private String filename = "products.txt";
 
-
     public ArrayList<Product> getAllProducts() {
         ArrayList<Product> products = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
@@ -23,12 +22,10 @@ public class productStorage {
                 products.add(new Product(id, name, category, price, quantity, expiry, damaged));
             }
         } catch (IOException e) {
-
+            e.printStackTrace();
         }
         return products;
     }
-
-
 
     public Product searchProduct(int id) {
         for (Product p : getAllProducts()) {
@@ -38,8 +35,34 @@ public class productStorage {
         return null;
     }
 
+    public void createOrder(int id, int quantity) {
+        Product p = searchProduct(id);
+        if (p != null && p.getQuantity() >= quantity) {
+            updateProductQuantity(id, p.getQuantity() - quantity);
+        }
+    }
 
+    public void cancelOrder(int id, int quantity) {
+        Product p = searchProduct(id);
+        if (p != null) {
+            updateProductQuantity(id, p.getQuantity() + quantity);
+        }
+    }
 
-
+    public void updateProductQuantity(int id, int newQuantity) {
+        ArrayList<Product> products = getAllProducts();
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename))) {
+            for (Product p : products) {
+                if (p.getProductId() == id) {
+                    p.setQuantity(newQuantity);
+                }
+                String line = p.getProductId() + ";" + p.getProductName() + ";" + p.getCategory() + ";" +
+                        p.getPrice() + ";" + p.getQuantity() + ";" + p.getExpiryDate() + ";" + p.getDamagedQuantity();
+                bw.write(line);
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
-
