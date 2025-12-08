@@ -20,8 +20,7 @@ public class Product {
         this.damagedQuantity = 0;
     }
 
-    public Product(int productId, String productName, String category, double price, int quantity, LocalDate expiryDate,
-            int damagedQuantity) {
+    public Product(int productId, String productName, String category, double price, int quantity, LocalDate expiryDate){
         setProductId(productId);
         setProductName(productName);
         setCategory(category);
