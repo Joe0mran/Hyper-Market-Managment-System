@@ -2,11 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.time.format.DateTimeFormatter;
 
-public class productGui extends JFrame {
+public class salesGui extends JFrame {
 
-    private productStorage storage = new productStorage();
+    private salesStorage storage = new salesStorage();
 
-    public productGui() {
+    public salesGui() {
         setTitle("Product Management");
         setSize(600, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -115,6 +115,6 @@ public class productGui extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new productGui().setVisible(true));
+        SwingUtilities.invokeLater(() -> new salesGui().setVisible(true));
     }
 }
