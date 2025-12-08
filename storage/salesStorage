@@ -1,8 +1,10 @@
+
+
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class productStorage {
+public class salesStorage {
 
     private String filename = "products.txt";
 
