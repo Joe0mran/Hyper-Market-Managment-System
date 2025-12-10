@@ -26,7 +26,7 @@ public class inventoryGui extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout(10,10));
 
-        // Input Panel
+       
         JPanel inputPanel = new JPanel(new GridLayout(7, 2,5,5));
         inputPanel.add(new JLabel("ID:")); inputPanel.add(idField);
         inputPanel.add(new JLabel("Name:")); inputPanel.add(nameField);
@@ -35,12 +35,12 @@ public class inventoryGui extends JFrame {
         inputPanel.add(new JLabel("Quantity:")); inputPanel.add(quantityField);
         inputPanel.add(new JLabel("Expiry (YYYY-MM-DD):")); inputPanel.add(expiryField);
 
-        // Action Panel
+        
         JPanel actionPanel = new JPanel(new FlowLayout());
         actionPanel.add(new JLabel("Quantity for Damaged / Return:"));
         actionPanel.add(actionQuantityField);
 
-        // Buttons Panel
+       
         JPanel buttonPanel = new JPanel(new GridLayout(2, 5, 5,5));
         JButton addBtn = new JButton("Add");
         JButton updateBtn = new JButton("Update");
@@ -56,11 +56,11 @@ public class inventoryGui extends JFrame {
         buttonPanel.add(searchBtn); buttonPanel.add(listBtn); buttonPanel.add(checkExpiryBtn);
         buttonPanel.add(lowStockBtn); buttonPanel.add(damagedBtn); buttonPanel.add(returnBtn);
 
-        // Output Area
+        
         outputArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(outputArea);
 
-        // Organize panels
+        
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
         centerPanel.add(actionPanel);
@@ -70,7 +70,7 @@ public class inventoryGui extends JFrame {
         add(centerPanel, BorderLayout.CENTER);
         add(scrollPane, BorderLayout.SOUTH);
 
-        // Button Actions
+        
         addBtn.addActionListener(e -> addProduct());
         updateBtn.addActionListener(e -> updateProduct());
         deleteBtn.addActionListener(e -> deleteProduct());
@@ -82,7 +82,7 @@ public class inventoryGui extends JFrame {
         returnBtn.addActionListener(e -> processReturn());
     }
 
-    // ---- Methods ----
+    
     private void addProduct() {
         try {
             int id = Integer.parseInt(idField.getText());
@@ -189,3 +189,4 @@ public class inventoryGui extends JFrame {
         SwingUtilities.invokeLater(() -> new inventoryGui().setVisible(true));
     }
 }
+
