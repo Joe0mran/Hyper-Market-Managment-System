@@ -1,119 +1,200 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 
-public class salesGui extends JFrame {
+public class SalesGUI extends JFrame {
 
-    private salesStorage storage = new salesStorage();
+    SalesController controller;
 
-    public salesGui() {
-        setTitle("Product Management");
-        setSize(600, 500);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    DefaultTableModel productsModel;
+    DefaultTableModel cartModel;
+    DefaultTableModel ordersModel;
+
+    JTextField productIdField = new JTextField();
+    JTextField qtyField = new JTextField();
+    JTextField cancelOrderField = new JTextField();
+
+    public SalesGUI() {
+
+        controller = new SalesController(new SalesStorage());
+
+        setTitle("Sales System");
+        setSize(1100, 600);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setLayout(new BorderLayout(10, 10));
+        setLayout(new BorderLayout(10,10));
 
-        JPanel topPanel = new JPanel();
-        JLabel idLabel = new JLabel("Product ID:");
-        JTextField idField = new JTextField(10);
-        JButton searchBtn = new JButton("Search");
-        topPanel.add(idLabel);
-        topPanel.add(idField);
-        topPanel.add(searchBtn);
-        add(topPanel, BorderLayout.NORTH);
+        Color beigeLight = new Color(250,243,225);
+        getContentPane().setBackground(beigeLight);
 
-        JTextArea displayArea = new JTextArea();
-        displayArea.setEditable(false);
-        JScrollPane scrollPane = new JScrollPane(displayArea);
-        add(scrollPane, BorderLayout.CENTER);
+        // ===== PRODUCTS TABLE =====
+        productsModel = new DefaultTableModel(
+                new String[]{"ID","Name","Price","Qty"},0);
+        JTable productsTable = new JTable(productsModel);
+        productsTable.setBackground(beigeLight);
+        productsTable.setFillsViewportHeight(true);
+        loadProducts();
 
-        JPanel bottomPanel = new JPanel();
+        JPanel left = new JPanel(new BorderLayout());
+        left.setBackground(beigeLight);
+        left.add(new JLabel("Available Products"), BorderLayout.NORTH);
+        left.add(new JScrollPane(productsTable), BorderLayout.CENTER);
 
-        JButton viewAllBtn = new JButton("View All Products");
-        JLabel qtyLabel = new JLabel("Quantity:");
-        JTextField quantityField = new JTextField(5);
-        JButton createOrderBtn = new JButton("Create Order");
-        JButton cancelOrderBtn = new JButton("Cancel Order");
+        // ===== CONTROLS =====
+        JPanel center = new JPanel(new GridLayout(12,1,5,5));
+        center.setBackground(beigeLight);
 
-        bottomPanel.add(viewAllBtn);
-        bottomPanel.add(qtyLabel);
-        bottomPanel.add(quantityField);
-        bottomPanel.add(createOrderBtn);
-        bottomPanel.add(cancelOrderBtn);
+        center.add(new JLabel("Product ID"));
+        center.add(productIdField);
+        center.add(new JLabel("Quantity"));
+        center.add(qtyField);
 
-        add(bottomPanel, BorderLayout.SOUTH);
+        JButton addBtn = new JButton("Add to Cart");
+        JButton removeBtn = new JButton("Remove From Cart");
+        JButton cancelBtn = new JButton("Cancel Order");
+        JButton createBtn = new JButton("Create Order");
 
-        viewAllBtn.addActionListener(e -> {
-            displayArea.setText("");
-            for (Product p : storage.getAllProducts()) {
-                displayArea.append("ID: " + p.getProductId() + " | ");
-                displayArea.append("Name: " + p.getProductName() + " | ");
-                displayArea.append("Category: " + p.getCategory() + " | ");
-                displayArea.append("Price: " + p.getPrice() + " | ");
-                displayArea.append("Quantity: " + p.getQuantity() + " | ");
-                displayArea.append("Expiry: " + p.getExpiryDate().format(DateTimeFormatter.ISO_DATE) + " | ");
-                displayArea.append("Damaged: " + p.getDamagedQuantity() + "\n");
-            }
-        });
+        JButton[] buttons = {addBtn, removeBtn, cancelBtn, createBtn};
+        for (JButton btn : buttons) {
+            btn.setBackground(beigeLight);
+            btn.setFont(new Font("Arial", Font.BOLD, 14));
+        }
 
-        searchBtn.addActionListener(e -> {
-            displayArea.setText("");
+        center.add(addBtn);
+        center.add(removeBtn);
+        center.add(new JLabel("Cancel Order ID"));
+        center.add(cancelOrderField);
+        center.add(cancelBtn);
+        center.add(createBtn);
+
+        // ===== CART & ORDERS TABLES =====
+        cartModel = new DefaultTableModel(
+                new String[]{"ID","Name","Price","Qty"},0);
+        JTable cartTable = new JTable(cartModel);
+        cartTable.setBackground(beigeLight);
+        cartTable.setFillsViewportHeight(true);
+
+        ordersModel = new DefaultTableModel(
+                new String[]{"Order ID","Products","Total","Date","Status"},0);
+        JTable ordersTable = new JTable(ordersModel);
+        ordersTable.setBackground(beigeLight);
+        ordersTable.setFillsViewportHeight(true);
+
+        JPanel right = new JPanel(new GridLayout(2,1));
+        right.setBackground(beigeLight);
+        right.add(new JScrollPane(cartTable));
+        right.add(new JScrollPane(ordersTable));
+
+        add(left, BorderLayout.WEST);
+        add(center, BorderLayout.CENTER);
+        add(right, BorderLayout.EAST);
+
+        // ===== ACTIONS =====
+        addBtn.addActionListener(e -> {
             try {
-                int id = Integer.parseInt(idField.getText());
-                Product p = storage.searchProduct(id);
-                if (p != null) {
-                    displayArea.append("ID: " + p.getProductId() + "\n");
-                    displayArea.append("Name: " + p.getProductName() + "\n");
-                    displayArea.append("Category: " + p.getCategory() + "\n");
-                    displayArea.append("Price: " + p.getPrice() + "\n");
-                    displayArea.append("Quantity: " + p.getQuantity() + "\n");
-                    displayArea.append("Expiry: " + p.getExpiryDate().format(DateTimeFormatter.ISO_DATE) + "\n");
-                    displayArea.append("Damaged: " + p.getDamagedQuantity() + "\n");
-                } else {
-                    displayArea.setText("Product not found!");
+                String idText = productIdField.getText().trim();
+                String qtyText = qtyField.getText().trim();
+
+                if (idText.isEmpty() || qtyText.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please enter Product ID and Quantity!");
+                    return;
                 }
+
+                int id = Integer.parseInt(idText);
+                int qty = Integer.parseInt(qtyText);
+
+                Product p = controller.getStorage().searchProduct(id);
+                if (p != null && p.getQuantity() >= qty) {
+                    cartModel.addRow(new Object[]{
+                            p.getProductId(), p.getProductName(), p.getPrice(), qty
+                    });
+                } else {
+                    JOptionPane.showMessageDialog(null, "Invalid product ID or insufficient quantity!");
+                }
+
             } catch (NumberFormatException ex) {
-                displayArea.setText("Enter a valid ID!");
+                JOptionPane.showMessageDialog(null, "Please enter valid numbers for Product ID and Quantity!");
             }
         });
 
-        createOrderBtn.addActionListener(e -> {
+        removeBtn.addActionListener(e -> {
+            int row = cartTable.getSelectedRow();
+            if (row != -1) cartModel.removeRow(row);
+        });
+
+        createBtn.addActionListener(e -> {
+            if (cartModel.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(null, "Cart is empty!");
+                return;
+            }
+
+            Map<Integer,Integer> items = new HashMap<>();
+            StringBuilder productsText = new StringBuilder();
+
+            for (int i=0;i<cartModel.getRowCount();i++) {
+                int id = (int) cartModel.getValueAt(i,0);
+                int qty = (int) cartModel.getValueAt(i,3);
+                items.put(id, qty);
+                productsText.append(id).append(":").append(qty).append(" ");
+            }
+
+            int orderId = controller.createOrder(items);
+
+            Order o = controller.getStorage().getAllOrders()
+                    .stream().filter(x -> x.getOrderId()==orderId)
+                    .findFirst().get();
+
+            ordersModel.addRow(new Object[]{
+                    o.getOrderId(), productsText,
+                    o.getTotalPrice(), o.getOrderDate(), o.getStatus()
+            });
+
+            cartModel.setRowCount(0);
+            loadProducts();
+            JOptionPane.showMessageDialog(null, "Order created successfully!");
+        });
+
+        cancelBtn.addActionListener(e -> {
             try {
-                int id = Integer.parseInt(idField.getText());
-                int qty = Integer.parseInt(quantityField.getText());
-                Product p = storage.searchProduct(id);
-                if (p != null) {
-                    if (p.getQuantity() >= qty) {
-                        storage.updateProductQuantity(id, p.getQuantity() - qty);
-                        displayArea.setText("Order created!\nRemaining stock: " + (p.getQuantity() - qty));
-                    } else {
-                        displayArea.setText("Not enough stock!");
+                String cancelText = cancelOrderField.getText().trim();
+                if (cancelText.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please enter Order ID to cancel!");
+                    return;
+                }
+
+                int orderId = Integer.parseInt(cancelText);
+                controller.cancelOrder(orderId);
+
+                for (int i = 0; i < ordersModel.getRowCount(); i++) {
+                    int idInTable = Integer.parseInt(ordersModel.getValueAt(i, 0).toString());
+                    if (idInTable == orderId) {
+                        ordersModel.setValueAt("Cancelled", i, 4);
                     }
-                } else {
-                    displayArea.setText("Product not found!");
                 }
-            } catch (NumberFormatException ex) {
-                displayArea.setText("Enter valid ID and quantity!");
-            }
-        });
 
-        cancelOrderBtn.addActionListener(e -> {
-            try {
-                int id = Integer.parseInt(idField.getText());
-                int qty = Integer.parseInt(quantityField.getText());
-                Product p = storage.searchProduct(id);
-                if (p != null) {
-                    storage.updateProductQuantity(id, p.getQuantity() + qty);
-                    displayArea.setText("Order cancelled!\nStock restored: " + (p.getQuantity() + qty));
-                } else {
-                    displayArea.setText("Product not found!");
-                }
+                loadProducts();
+                JOptionPane.showMessageDialog(null, "Order cancelled successfully!");
+
             } catch (NumberFormatException ex) {
-                displayArea.setText("Enter valid ID and quantity!");
+                JOptionPane.showMessageDialog(null, "Please enter a valid Order ID!");
             }
         });
     }
 
-    
+    private void loadProducts() {
+        productsModel.setRowCount(0);
+        for (Product p : controller.getStorage().getAllProducts()) {
+            productsModel.addRow(new Object[]{
+                    p.getProductId(), p.getProductName(),
+                    p.getPrice(), p.getQuantity()
+            });
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new SalesGUI().setVisible(true));
+    }
 }
 
