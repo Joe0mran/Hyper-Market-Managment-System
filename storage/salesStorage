@@ -1,70 +1,98 @@
 
 
-import java.io.*;
+import java.util.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
-public class salesStorage {
+public class SalesStorage {
 
-    private String filename = "products.txt";
+    private Map<Integer, Product> products = new HashMap<>();
+    private Map<Integer, Order> orders = new HashMap<>();
+    private int orderCounter = 1;
 
-    public ArrayList<Product> getAllProducts() {
-        ArrayList<Product> products = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split(";");
-                int id = Integer.parseInt(parts[0]);
-                String name = parts[1];
-                String category = parts[2];
-                double price = Double.parseDouble(parts[3]);
-                int quantity = Integer.parseInt(parts[4]);
-                LocalDate expiry = LocalDate.parse(parts[5]);
-                int damaged = Integer.parseInt(parts[6]);
-                products.add(new Product(id, name, category, price, quantity, expiry, damaged));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return products;
+    public SalesStorage() {
+
+   products.put(1,new Product(1,"Pepsi","Drinks",12.5,100,null));
+   products.put(2,new Product(2,"Cola","Drinks",12.5,80,null));
+   products.put(3,new Product(3,"Water","Drinks",5,200,null));
+   products.put(4,new Product(4,"Chips","Snacks",10,60,null));
+   products.put(5,new Product(5,"Chocolate","Snacks",15,40,null));
+   products.put(6,new Product(6,"Cake","Bakery",30,20,null));
+   products.put(7,new Product(7,"Bread","Bakery",7,100,null));
+   products.put(8,new Product(8,"Milk","Dairy",20,50,null));
+   products.put(9,new Product(9,"Cheese","Dairy",35,25,null));
+   products.put(10,new Product(10,"Yogurt","Dairy",10,60,null));
+   products.put(11,new Product(11,"Butter","Dairy",25,30,null));
+   products.put(12,new Product(12,"Orange Juice","Drinks",18,50,null));
+   products.put(13,new Product(13,"Lemonade","Drinks",12,70,null));
+   products.put(14,new Product(14,"Croissant","Bakery",15,40,null));
+   products.put(15,new Product(15,"Muffin","Bakery",20,35,null));
+   products.put(16,new Product(16,"Granola Bar","Snacks",8,100,null));
+   products.put(17,new Product(17,"Pretzel","Snacks",7,80,null));
+   products.put(18,new Product(18,"Ice Cream","Desserts",30,25,null));
+   products.put(19,new Product(19,"Brownie","Desserts",22,30,null));
+
+    }
+
+    public Collection<Product> getAllProducts() {
+        return products.values();
     }
 
     public Product searchProduct(int id) {
-        for (Product p : getAllProducts()) {
-            if (p.getProductId() == id)
-                return p;
-        }
-        return null;
+        return products.get(id);
     }
 
-    public void createOrder(int id, int quantity) {
-        Product p = searchProduct(id);
-        if (p != null && p.getQuantity() >= quantity) {
-            updateProductQuantity(id, p.getQuantity() - quantity);
+    public int createOrder(Map<Integer,Integer> items) {
+
+        ArrayList<Order> orderItems = new ArrayList<>();
+        double total = 0;
+
+        for (Map.Entry<Integer,Integer> e : items.entrySet()) {
+
+            Product p = products.get(e.getKey());
+            if (p == null || p.getQuantity() < e.getValue())
+                throw new RuntimeException("Invalid stock");
+
+            p.setQuantity(p.getQuantity() - e.getValue());
+
+            Order item = new Order();
+            item.setOrderId(p.getProductId());
+            item.setTotalPrice(p.getPrice() * e.getValue());
+            item.setOrderDate(LocalDate.now());
+            item.setStatus("Item");
+
+            orderItems.add(item);
+            total += item.getTotalPrice();
         }
+
+        Order order = new Order(
+                orderCounter,
+                orderItems,
+                total,
+                LocalDate.now(),
+                "Completed"
+        );
+
+        orders.put(orderCounter, order);
+        return orderCounter++;
     }
 
-    public void cancelOrder(int id, int quantity) {
-        Product p = searchProduct(id);
-        if (p != null) {
-            updateProductQuantity(id, p.getQuantity() + quantity);
-        }
-    }
+    public void cancelOrder(int orderId) {
 
-    public void updateProductQuantity(int id, int newQuantity) {
-        ArrayList<Product> products = getAllProducts();
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename))) {
-            for (Product p : products) {
-                if (p.getProductId() == id) {
-                    p.setQuantity(newQuantity);
-                }
-                String line = p.getProductId() + ";" + p.getProductName() + ";" + p.getCategory() + ";" +
-                        p.getPrice() + ";" + p.getQuantity() + ";" + p.getExpiryDate() + ";" + p.getDamagedQuantity();
-                bw.write(line);
-                bw.newLine();
+        Order o = orders.get(orderId);
+        if (o == null || o.getStatus().equals("Cancelled")) return;
+
+        for (Order item : o.getProductList()) {
+            Product p = products.get(item.getOrderId());
+            if (p != null) {
+                int qty = (int)(item.getTotalPrice() / p.getPrice());
+                p.setQuantity(p.getQuantity() + qty);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+
+        o.setStatus("Cancelled");
+    }
+
+    public Collection<Order> getAllOrders() {
+        return orders.values();
     }
 }
