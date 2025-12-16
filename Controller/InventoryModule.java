@@ -6,22 +6,21 @@ import java.util.List;
 public class InventoryModule {
 
     private List<Product> products;
-    private final String fileName = "products.txt"; // حطي المسار حسب مكان الملف عندك
-
+    private final String fileName = "products.txt"; 
     public InventoryModule() {
         products = new ArrayList<>();
         loadProductsFromFile();
     }
 
-    // ======= Load Products from File =======
+    
     private void loadProductsFromFile() {
         products.clear();
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line;
             while ((line = br.readLine()) != null) {
-                if (line.trim().isEmpty()) continue; // تجاهل الأسطر الفارغة
+                if (line.trim().isEmpty()) continue; 
                 String[] parts = line.split(";");
-                if (parts.length != 6) continue; // كل سطر لازم 6 أعمدة
+                if (parts.length != 6) continue; 
                 int id = Integer.parseInt(parts[0]);
                 String name = parts[1];
                 int qty = Integer.parseInt(parts[2]);
@@ -35,7 +34,7 @@ public class InventoryModule {
         }
     }
 
-    // ======= Save Products to File =======
+    
     private void saveProductsToFile() {
         try (PrintWriter pw = new PrintWriter(new FileWriter(fileName))) {
             for (Product p : products) {
@@ -47,7 +46,7 @@ public class InventoryModule {
         }
     }
 
-    // ======= CRUD Operations =======
+    
     public void addProduct(Product p) {
         products.add(p);
         saveProductsToFile();
@@ -91,4 +90,5 @@ public class InventoryModule {
         return low;
     }
 }
+
 
