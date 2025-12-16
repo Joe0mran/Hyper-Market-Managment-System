@@ -1,92 +1,94 @@
-import java.util.*;
+import java.io.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InventoryModule {
-    private List<Product> products; // This list comes from the Storage Stub
 
-    public InventoryModule(List<Product> products) {
-        this.products = products;
+    private List<Product> products;
+    private final String fileName = "products.txt"; // حطي المسار حسب مكان الملف عندك
+
+    public InventoryModule() {
+        products = new ArrayList<>();
+        loadProductsFromFile();
     }
 
+    // ======= Load Products from File =======
+    private void loadProductsFromFile() {
+        products.clear();
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.trim().isEmpty()) continue; // تجاهل الأسطر الفارغة
+                String[] parts = line.split(";");
+                if (parts.length != 6) continue; // كل سطر لازم 6 أعمدة
+                int id = Integer.parseInt(parts[0]);
+                String name = parts[1];
+                int qty = Integer.parseInt(parts[2]);
+                double price = Double.parseDouble(parts[3]);
+                String cat = parts[4];
+                LocalDate expiry = LocalDate.parse(parts[5]);
+                products.add(new Product(id, name, qty, price, cat, expiry));
+            }
+        } catch (IOException e) {
+            System.out.println("File not found or error reading file.");
+        }
+    }
+
+    // ======= Save Products to File =======
+    private void saveProductsToFile() {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(fileName))) {
+            for (Product p : products) {
+                pw.println(p.getId() + ";" + p.getName() + ";" + p.getQuantity() + ";" +
+                        p.getPrice() + ";" + p.getCategory() + ";" + p.getExpiryDate());
+            }
+        } catch (IOException e) {
+            System.out.println("Error writing file.");
+        }
+    }
+
+    // ======= CRUD Operations =======
     public void addProduct(Product p) {
         products.add(p);
-    }
-
-    public boolean updateProduct(int productId, Product newProductData) {
-        for (int i = 0; i < products.size(); i++) {
-            if (products.get(i).getProductId() == productId) {
-                products.set(i, newProductData);
-                return true;
-            }
-        }
-        return false;
+        saveProductsToFile();
     }
 
     public boolean deleteProduct(int productId) {
-        Iterator<Product> it = products.iterator();
-        while (it.hasNext()) {
-            if (it.next().getProductId() == productId) {
-                it.remove();
+        for (Product p : products) {
+            if (p.getId() == productId) {
+                products.remove(p);
+                saveProductsToFile();
                 return true;
             }
         }
         return false;
     }
 
-    public Product searchProduct(int productId) {
-        for (int i = 0; i < products.size(); i++) {
-            if (products.get(i).getProductId() == productId) {
-                return products.get(i);
-            }
+    public Product findById(int productId) {
+        for (Product p : products) {
+            if (p.getId() == productId) return p;
         }
         return null;
     }
 
-    public StringBuilder listProducts(){
-        StringBuilder s = new StringBuilder();
-        for(int i = 0 ; i < products.size(); i++){
-            s.append(products.get(i));
-            s.append("\n");
-        }
-        return s;
+    public List<Product> getAllProducts() {
+        return new ArrayList<>(products);
     }
 
-    public List<Product> checkExpiry(){
-        List<Product> p = new ArrayList<>();
-        for (int i = 0; i < products.size(); i++) {
-            if(LocalDate.now().isAfter(products.get(i).getExpiryDate())){
-                p.add(products.get(i));
-            }
+    public List<Product> checkExpiry() {
+        List<Product> expired = new ArrayList<>();
+        for (Product p : products) {
+            if (LocalDate.now().isAfter(p.getExpiryDate())) expired.add(p);
         }
-        return p;
+        return expired;
     }
 
-    public List<Product> checkLowStock(){
-        List<Product> p = new ArrayList<>();
-        for (int i = 0; i < products.size(); i++) {
-            if(products.get(i).getQuantity() <= 5){
-                p.add(products.get(i));
-            }
+    public List<Product> checkLowStock() {
+        List<Product> low = new ArrayList<>();
+        for (Product p : products) {
+            if (p.getQuantity() <= 5) low.add(p);
         }
-        return p;
-    }
-
-    public boolean processDamagedItems(int productId, int damageAmount){
-        Product p = searchProduct(productId);
-        if(p == null){
-            return false;
-        }
-        p.setDamagedQuantity(p.getDamagedQuantity() + damageAmount);
-        p.setQuantity(Math.max(0, p.getQuantity() - damageAmount));
-        return true;
-    }
-
-    public boolean processSalesReturn(int productId, int returnAmount){
-        Product p = searchProduct(productId);
-        if(p == null){
-            return false;
-        }
-        p.setQuantity(p.getQuantity() + returnAmount);
-        return true;
+        return low;
     }
 }
+
