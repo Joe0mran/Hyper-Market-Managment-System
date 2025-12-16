@@ -22,22 +22,21 @@ public class InventoryGUI extends JFrame {
         String[] columns = {"ID", "Name", "Quantity", "Price", "Category", "Expiry"};
         model = new DefaultTableModel(columns, 0) {
             @Override
-            public boolean isCellEditable(int row, int column) {
-                return false; // منع التعديل مباشرة على الجدول
-            }
+            public boolean isCellEditable(int row, int column) { 
+                return false; }
         };
         table = new JTable(model);
-        table.getTableHeader().setReorderingAllowed(false); // منع نقل الأعمدة
+        table.getTableHeader().setReorderingAllowed(false); 
         table.setRowHeight(28);
         table.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 14));
 
-        // ======= Row Selection كامل فقط =======
+        
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.setRowSelectionAllowed(true);
         table.setColumnSelectionAllowed(false);
 
-        // ======= Highlight للمنتجات =======
+        
         table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable t, Object value, boolean isSelected,
@@ -48,15 +47,15 @@ public class InventoryGUI extends JFrame {
                 LocalDate expiry = LocalDate.parse(t.getValueAt(row, 5).toString());
 
                 if (LocalDate.now().isAfter(expiry)) {
-                    comp.setBackground(new Color(255, 102, 102)); // أحمر فاتح للمنتهي
+                    comp.setBackground(new Color(255, 102, 102)); 
                 } else if (qty <= 5) {
-                    comp.setBackground(new Color(255, 235, 238)); // وردي خفيف للكمية المنخفضة
+                    comp.setBackground(new Color(255, 235, 238)); 
                 } else {
-                    comp.setBackground(Color.WHITE); // عادي
+                    comp.setBackground(Color.WHITE); 
                 }
 
                 if (isSelected) {
-                    comp.setBackground(new Color(102, 178, 255)); // اختيار الصف
+                    comp.setBackground(new Color(102, 178, 255)); 
                 }
 
                 return comp;
