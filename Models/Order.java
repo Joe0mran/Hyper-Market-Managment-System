@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Order {
     private int orderId;
-    private ArrayList<orderitem> items;
+    private ArrayList<OrderItem> items;
     private double totalPrice;
     private LocalDate orderDate;
     private String status;
@@ -16,15 +16,16 @@ public class Order {
         this.status = "Completed";
     }
 
-    public void addItem(orderitem item) {
+    public void addItem(OrderItem item) {
         items.add(item);
         totalPrice += item.getTotalPrice();
     }
 
     public int getOrderId() { return orderId; }
-    public ArrayList<orderitem> getItems() { return items; }
+    public ArrayList<OrderItem> getItems() { return items; }
     public double getTotalPrice() { return totalPrice; }
     public LocalDate getOrderDate() { return orderDate; }
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
 }
+
