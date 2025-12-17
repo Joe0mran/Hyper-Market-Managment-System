@@ -1,6 +1,5 @@
 import java.time.LocalDate;
 
-
 public class Product {
     private int id;
     private String name;
@@ -10,8 +9,8 @@ public class Product {
     private int damagedQuantity;
     private LocalDate expiryDate;
 
-
-    public Product(int id, String name, int quantity, double price, String category, LocalDate expiryDate) {
+    public Product(int id, String name, int quantity, double price,
+                   String category, LocalDate expiryDate) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
@@ -21,7 +20,7 @@ public class Product {
         this.damagedQuantity = 0;
     }
 
-
+    // Getters
     public int getId() { return id; }
     public String getName() { return name; }
     public int getQuantity() { return quantity; }
@@ -30,7 +29,7 @@ public class Product {
     public int getDamagedQuantity() { return damagedQuantity; }
     public LocalDate getExpiryDate() { return expiryDate; }
 
-
+    // Setters
     public void setName(String name) { this.name = name; }
     public void setQuantity(int quantity) { this.quantity = quantity; }
     public void setPrice(double price) { this.price = price; }
@@ -40,6 +39,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return id + ";" + name + ";" + quantity + ";" + price + ";" + category + ";" + damagedQuantity + ";" + expiryDate;
+        return id + ";" + name + ";" + quantity + ";" + price + ";" + category + ";" + expiryDate;
     }
 }
+
