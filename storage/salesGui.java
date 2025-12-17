@@ -108,7 +108,7 @@ public class SalesGUI extends JFrame {
                 Product p = controller.getStorage().searchProduct(id);
                 if (p != null && p.getQuantity() >= qty) {
                     cartModel.addRow(new Object[]{
-                            p.getProductId(), p.getProductName(), p.getPrice(), qty
+                            p.getId(), p.getName(), p.getPrice(), qty
                     });
                 } else {
                     JOptionPane.showMessageDialog(null, "Invalid product ID or insufficient quantity!");
@@ -187,7 +187,7 @@ public class SalesGUI extends JFrame {
         productsModel.setRowCount(0);
         for (Product p : controller.getStorage().getAllProducts()) {
             productsModel.addRow(new Object[]{
-                    p.getProductId(), p.getProductName(),
+                    p.getId(), p.getName(),
                     p.getPrice(), p.getQuantity()
             });
         }
@@ -197,4 +197,3 @@ public class SalesGUI extends JFrame {
         SwingUtilities.invokeLater(() -> new SalesGUI().setVisible(true));
     }
 }
-
