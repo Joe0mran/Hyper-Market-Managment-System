@@ -1,4 +1,4 @@
-import java.time.LocalDate;
+import  java.time.LocalDate;
 
 public class Product {
     private int id;
@@ -42,4 +42,3 @@ public class Product {
         return id + ";" + name + ";" + quantity + ";" + price + ";" + category + ";" + expiryDate;
     }
 }
-
