@@ -1,0 +1,536 @@
+
+package hypermarket;
+import javax.swing.JOptionPane;
+
+public class MarketingGUI extends javax.swing.JFrame {
+
+    private MarketingModule marketingModule;
+
+    public MarketingGUI() {
+        initComponents();
+        marketingModule = new MarketingModule();
+        outPut.setEditable(false);
+    }
+
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        newOffer = new javax.swing.JLabel();
+        offerId = new javax.swing.JLabel();
+        description = new javax.swing.JLabel();
+        discountValue = new javax.swing.JLabel();
+        expiryDate = new javax.swing.JLabel();
+        idText = new javax.swing.JTextField();
+        descText = new javax.swing.JTextField();
+        discountText = new javax.swing.JTextField();
+        expiryText = new javax.swing.JTextField();
+        addOfferBtn = new javax.swing.JButton();
+        clearBtn = new javax.swing.JButton();
+        actions = new javax.swing.JLabel();
+        offerSend = new javax.swing.JLabel();
+        offetSendText = new javax.swing.JTextField();
+        inventoryBtn = new javax.swing.JButton();
+        reportBtn = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        outPut = new javax.swing.JTextArea();
+        deleteId = new javax.swing.JLabel();
+        deleteBtn = new javax.swing.JButton();
+        deleteText = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabel1 = new javax.swing.JLabel();
+        productID = new javax.swing.JTextField();
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane2.setViewportView(jTextArea1);
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Marketing");
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        newOffer.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        newOffer.setText("Creat New Offer");
+
+        offerId.setText("Offer ID:");
+
+        description.setText("Description:");
+
+        discountValue.setText("Discount Value:");
+
+        expiryDate.setText("Expiry Date (YYYY-MM-DD):");
+
+        idText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idTextActionPerformed(evt);
+            }
+        });
+
+        descText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                descTextActionPerformed(evt);
+            }
+        });
+
+        discountText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                discountTextActionPerformed(evt);
+            }
+        });
+
+        expiryText.setText("2026-01-01");
+        expiryText.setToolTipText("");
+        expiryText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                expiryTextActionPerformed(evt);
+            }
+        });
+
+        addOfferBtn.setBackground(new java.awt.Color(0, 153, 0));
+        addOfferBtn.setText("Add Offer");
+        addOfferBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addOfferBtnActionPerformed(evt);
+            }
+        });
+
+        clearBtn.setText("Clear Fields");
+        clearBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearBtnActionPerformed(evt);
+            }
+        });
+
+        actions.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        actions.setText("Actions");
+
+        offerSend.setText("Offer ID to Send:");
+
+        offetSendText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                offetSendTextActionPerformed(evt);
+            }
+        });
+
+        inventoryBtn.setBackground(new java.awt.Color(204, 204, 0));
+        inventoryBtn.setText("Send to Inventory");
+        inventoryBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inventoryBtnActionPerformed(evt);
+            }
+        });
+
+        reportBtn.setBackground(new java.awt.Color(0, 51, 255));
+        reportBtn.setText("Generate Report");
+        reportBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportBtnActionPerformed(evt);
+            }
+        });
+
+        outPut.setColumns(20);
+        outPut.setRows(5);
+        jScrollPane4.setViewportView(outPut);
+
+        deleteId.setText("Offer ID to Delete:");
+
+        deleteBtn.setBackground(new java.awt.Color(204, 0, 0));
+        deleteBtn.setText("Delete");
+        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteBtnActionPerformed(evt);
+            }
+        });
+
+        deleteText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteTextActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Product ID:");
+
+        productID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                productIDActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator1)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(50, 50, 50)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(offerId)
+                                    .addComponent(description)
+                                    .addComponent(jLabel1)
+                                    .addComponent(discountValue)
+                                    .addComponent(expiryDate)
+                                    .addComponent(addOfferBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(31, 31, 31)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(descText, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(idText)
+                                    .addComponent(productID)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(expiryText, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(discountText, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(clearBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(29, 29, 29))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(newOffer)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(actions)
+                        .addGap(601, 601, 601))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(offerSend)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(offetSendText, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(inventoryBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(reportBtn))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(deleteId)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(deleteText, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(deleteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addContainerGap())))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(newOffer)
+                .addGap(3, 3, 3)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(offerId)
+                    .addComponent(idText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(description)
+                    .addComponent(descText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(productID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(discountValue)
+                    .addComponent(discountText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(expiryDate)
+                    .addComponent(expiryText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addOfferBtn)
+                    .addComponent(clearBtn))
+                .addGap(45, 45, 45)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(actions)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(offerSend)
+                    .addComponent(offetSendText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(reportBtn)
+                    .addComponent(inventoryBtn))
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(deleteId)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(deleteText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(deleteBtn)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void idTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idTextActionPerformed
+        String input = idText.getText().trim();
+
+        if (input.matches("\\d{4}")) {
+
+            descText.requestFocus();
+        } else {
+
+            javax.swing.JOptionPane.showMessageDialog(this, "Offer ID must be exactly 4 digits (e.g., 1001).");
+            idText.selectAll();
+            idText.requestFocus();
+        }
+    }//GEN-LAST:event_idTextActionPerformed
+
+    private void expiryTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_expiryTextActionPerformed
+        String dateStr = expiryText.getText();
+
+        if (dateStr.matches("\\d{4}-\\d{2}-\\d{2}")) {
+
+            addOfferBtn.doClick();
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid Date Format. Use YYYY-MM-DD (e.g., 2025-12-01).");
+        }
+    }//GEN-LAST:event_expiryTextActionPerformed
+
+    private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearBtnActionPerformed
+        idText.setText("");
+        descText.setText("");
+        discountText.setText("");
+        expiryText.setText("");
+    }//GEN-LAST:event_clearBtnActionPerformed
+
+    private void offetSendTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_offetSendTextActionPerformed
+        String input = offetSendText.getText().trim();
+
+        if (input.matches("\\d{4}")) {
+
+            inventoryBtn.doClick();
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "Offer ID to send must be exactly 4 digits.");
+            offetSendText.selectAll();
+            offetSendText.requestFocus();
+        }
+    }//GEN-LAST:event_offetSendTextActionPerformed
+
+    private void inventoryBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventoryBtnActionPerformed
+        try {
+
+            if (offetSendText.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please enter an Offer ID to send.");
+                return;
+            }
+
+            int id = Integer.parseInt(offetSendText.getText());
+
+            boolean success = marketingModule.sendOfferToInventory(id);
+
+            if (success) {
+                JOptionPane.showMessageDialog(this, "Offer Sent to Inventory System Successfully.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Offer ID not found in Active Offers.");
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Error: Offer ID must be a number.");
+        }
+    }//GEN-LAST:event_inventoryBtnActionPerformed
+
+    private void reportBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportBtnActionPerformed
+
+        String report = marketingModule.getReport();
+        outPut.setText(report);
+    }//GEN-LAST:event_reportBtnActionPerformed
+
+    private void descTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descTextActionPerformed
+        if (descText.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Description cannot be empty.");
+        } else {
+
+            discountText.requestFocus();
+        }
+    }//GEN-LAST:event_descTextActionPerformed
+
+    private void discountTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_discountTextActionPerformed
+        try {
+            double discount = Double.parseDouble(discountText.getText());
+            if (discount < 0) {
+                JOptionPane.showMessageDialog(this, "Discount cannot be negative.");
+                return;
+            }
+
+            expiryText.requestFocus();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Discount must be a valid number.");
+            discountText.setText("");
+            discountText.requestFocus();
+        }
+    }//GEN-LAST:event_discountTextActionPerformed
+
+    private void addOfferBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addOfferBtnActionPerformed
+        try {
+
+            if (idText.getText().isEmpty() || descText.getText().isEmpty()
+                    || discountText.getText().isEmpty() || expiryText.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please fill in all fields!");
+                return;
+            }
+
+            String idString = idText.getText().trim();
+            if (!idString.matches("\\d{4}")) {
+                JOptionPane.showMessageDialog(this, "Offer ID must be exactly 4 digits.");
+                return;
+            }
+            int id = Integer.parseInt(idString);
+
+            for (Offer offer : marketingModule.getActiveOffers()) {
+                if (offer.getOfferID() == id) {
+
+                    JOptionPane.showMessageDialog(this, "Error: Offer ID " + id + " already exists! Please use a unique ID.");
+                    idText.selectAll();
+                    idText.requestFocus();
+                    return;
+                }
+            }
+
+            String desc = descText.getText();
+            double discount = Double.parseDouble(discountText.getText());
+            String date = expiryText.getText();
+
+            marketingModule.createOffer(id, desc, discount, date);
+
+            JOptionPane.showMessageDialog(this, "Offer Added Successfully!");
+            clearBtnActionPerformed(evt);
+            outPut.setText(marketingModule.getReport());
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Error: Invalid number format for Discount.");
+        } catch (java.time.format.DateTimeParseException e) {
+            JOptionPane.showMessageDialog(this, "Error: Date format must be YYYY-MM-DD.");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+        }
+    }//GEN-LAST:event_addOfferBtnActionPerformed
+
+    private void deleteTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteTextActionPerformed
+        deleteBtn.doClick();
+    }//GEN-LAST:event_deleteTextActionPerformed
+
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
+        try {
+            String idStr = deleteText.getText().trim();
+
+            if (idStr.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please enter an Offer ID to delete.");
+                return;
+            }
+            if (!idStr.matches("\\d{4}")) {
+                JOptionPane.showMessageDialog(this, "Offer ID must be exactly 4 digits.");
+                return;
+            }
+
+            int id = Integer.parseInt(idStr);
+
+            int confirm = JOptionPane.showConfirmDialog(this,
+                    "Are you sure you want to delete Offer ID: " + id + "?",
+                    "Confirm Delete",
+                    JOptionPane.YES_NO_OPTION);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+
+                boolean isDeleted = marketingModule.deleteOffer(id); //
+
+                if (isDeleted) {
+                    JOptionPane.showMessageDialog(this, "Offer Deleted Successfully.");
+                    deleteText.setText("");
+                    outPut.setText(marketingModule.getReport());
+                } else {
+                    JOptionPane.showMessageDialog(this, "Offer ID not found.");
+                }
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Error: Offer ID must be a number.");
+        }
+    }//GEN-LAST:event_deleteBtnActionPerformed
+
+    private void productIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_productIDActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(MarketingGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(MarketingGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(MarketingGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(MarketingGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new MarketingGUI().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel actions;
+    private javax.swing.JButton addOfferBtn;
+    private javax.swing.JButton clearBtn;
+    private javax.swing.JButton deleteBtn;
+    private javax.swing.JLabel deleteId;
+    private javax.swing.JTextField deleteText;
+    private javax.swing.JTextField descText;
+    private javax.swing.JLabel description;
+    private javax.swing.JTextField discountText;
+    private javax.swing.JLabel discountValue;
+    private javax.swing.JLabel expiryDate;
+    private javax.swing.JTextField expiryText;
+    private javax.swing.JTextField idText;
+    private javax.swing.JButton inventoryBtn;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel newOffer;
+    private javax.swing.JLabel offerId;
+    private javax.swing.JLabel offerSend;
+    private javax.swing.JTextField offetSendText;
+    private javax.swing.JTextArea outPut;
+    private javax.swing.JTextField productID;
+    private javax.swing.JButton reportBtn;
+    // End of variables declaration//GEN-END:variables
+}
